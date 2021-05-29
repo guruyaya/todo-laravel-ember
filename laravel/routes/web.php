@@ -61,3 +61,5 @@ Route::post('/login', function(Request $request) {
     }
     return ['success' => false];
 });
+
+Route::get('/todo-list', 'TodoListController@list');
