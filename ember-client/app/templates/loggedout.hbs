@@ -1,34 +1,40 @@
 <div class="login_and_registration">
     <form id="login_form">
-        <h3>Log</h3>
+        <h3>Login</h3>
+        <button {{action "check_login"}}>Check Log in</button>
         <ul>
             <li>
                 <label for="login_email">login_email</label>
-                <input type="text" id="login_email">
+                {{input value=login_email}}
             </li>
             <li>
                 <label for="login_password">login_password</label>
-                <input type="password" id="login_password">
+                {{input type="password" value=login_password}}
             </li>
-            <button>Log In</button>
+            <button {{action "login"}}>Log in</button>
         </ul>
     </form>
     <form id="regsiter_form">
         <h3>Register</h3>
         <ul>
             <li>
+                <label for="register_name">register_name</label>
+                {{input type="text" value=register_name}}
+            </li>
+
+            <li>
                 <label for="register_email">register_email</label>
-                <input type="text" id="register_email">
+                {{input type="text" value=register_email}}
             </li>
             <li>
-                <label for="regsiter_password">regsiter_password</label>
-                <input type="password" id="regsiter_password">
+                <label for="register_password">register_password</label>
+                {{input type="password" value=register_password}}
             </li>
             <li>
-                <label for="regsiter_repeat_password">regsiter_repeat_password</label>
-                <input type="password" id="regsiter_repeat_password">
+                <label for="register_repeat_password">register_repeat_password</label>
+                {{input type="password" value=register_repeat_password}}
             </li>
-            <button>Register</button>
+            <button {{action "register"}}>Register</button>
         </ul>
     </form>
 
