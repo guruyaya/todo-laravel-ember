@@ -8,6 +8,7 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('loggedout');
+  this.route('todo-list', { path: '/' });
 });
 
 export default Router;
