@@ -35,7 +35,10 @@ export default Controller.extend({
                 crossDomain: true,
                 xhrFields: { withCredentials: true }
             }).then(function(data) {
-                window.location.href = '/';
+                if (data.success)
+                    window.location.href = '/';
+                else
+                    alert('Login failed')
             });
         }
     }
