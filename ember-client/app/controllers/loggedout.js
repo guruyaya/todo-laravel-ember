@@ -1,10 +1,11 @@
 import Controller from '@ember/controller';
+import config from '../config/environment';
 
 export default Controller.extend({
     actions: {
         check_login: function() {
             $.ajax({
-                'url': 'http://localhost:8000/is_logged_in',
+                'url': config.laravel_server + '/is_logged_in',
                 crossDomain: true,
                 xhrFields: { withCredentials: true }
             }).then(function(data) {
@@ -12,7 +13,7 @@ export default Controller.extend({
             });
         },
         register: function() {
-            const register_req = $.post('http://localhost:8000/register', {
+            const register_req = $.post(config.laravel_server + '/register', {
                 'name': this.get('register_name'),
                 'email': this.get('register_email'),
                 'password': this.get('register_password')
@@ -31,7 +32,7 @@ export default Controller.extend({
                     'email': this.get('login_email'),
                     'password': this.get('login_password')
                 },
-                url: 'http://localhost:8000/login',
+                url: config.laravel_server + '/login',
                 crossDomain: true,
                 xhrFields: { withCredentials: true }
             }).then(function(data) {
