@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import config from '../config/environment';
 
+
 export default Controller.extend({
     todo_items: [],
     actions: {
@@ -22,11 +23,11 @@ export default Controller.extend({
                 if (!data.success) {
                     alert('Error: ' + data.error);
                     if (data.todo_items){
-                        controller.get('todo_items').setObjects(data.todo_items);
+                        controller.get('model.todo_items').setObjects(data.todo_items);
                     }
                     return false;
                 }
-                var todo_items = controller.get('todo_items').setObjects([]);
+                var todo_items = controller.get('model.todo_items').setObjects([]);
                 $.each(data.todo_items, function() {
                     todo_items.pushObject(this);
                 });

@@ -1,6 +1,6 @@
 <h3>רשימת משימות</h3>
 <ul>
-{{#each todo_items as |item|}}
+{{#each model.todo_items as |item|}}
     <li>
         {{#if item.completed_at}}
         <input type="checkbox" checked id="todo_item_{{item.id}}" onchange={{action "set_completed" item.id false}} />
