@@ -12,11 +12,7 @@ class TodoListController extends Controller
         if (!Auth::check()){
             return ['success'=>false];
         }
-        $todo_items = \App\TodoItem::where('user_id', Auth::id())->
-            orderBy(\DB::raw('ISNULL(completed_at)'), 'DESC')->
-            orderByDesc('created_at')->
-            get();
-
+        $todo_items = \App\TodoItem::get_user_tasks(Auth::id());
         return ['success'=>true, 'todo_items'=>$todo_items];
     }
 }
