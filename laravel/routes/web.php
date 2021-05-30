@@ -28,6 +28,8 @@ Route::get('/register', function () {
 </form>
 ';
 });
+
+// TODO: move to it's own controller
 Route::post('/register', function(Request $request) {
     $data = Request::post();
     // TODO: Insecure registration!!! Do not send project without fixing!!!
@@ -66,3 +68,4 @@ Route::post('/login', function(Request $request) {
 });
 
 Route::get('/todo-list', 'TodoListController@list');
+Route::post('/set-completed', 'TodoListController@set_completed');
