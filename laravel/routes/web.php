@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/register', function () {
+    // TODO: Remove this function before sending
     return '
 <form method="post">
     <input name="name" value="yair" />
@@ -29,6 +30,7 @@ Route::get('/register', function () {
 });
 Route::post('/register', function(Request $request) {
     $data = Request::post();
+    // TODO: Insecure registration!!! Do not send project without fixing!!!
     return User::create([
         'name' => $data['name'],
         'email' => $data['email'],
@@ -44,6 +46,7 @@ Route::get('/is_logged_in', function() {
 });
 
 Route::get('/login', function () {
+    // TODO: Remove this function before sending
     return '
 <form method="post">
     <input name="email" value="yo@yoyoai.com" />
