@@ -1,4 +1,8 @@
 <h3>רשימת משימות</h3>
+<p>
+{{input value=task id="new_task_input"}}
+<button {{action "new_item"}} id="new_task_button" disabled>משימה חדשה</button>
+</p>
 <ul>
 {{#each model.todo_items as |item|}}
     <li>
