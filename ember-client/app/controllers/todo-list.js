@@ -1,12 +1,13 @@
 import Controller from '@ember/controller';
 import config from '../config/environment';
+import $ from 'jquery';
 
 const ajax_handler = function (url, data) {
     let method = 'GET';
     if (data){
         method='POST';
     }
-    return Ember.$.ajax({
+    return $.ajax({
         url: config.laravel_server + url,
         method: method,
         crossDomain: true,
@@ -21,11 +22,11 @@ export default Controller.extend({
         new_item () {
             const controller = this;
 
-           Ember.$('#new_task_button').attr('disabled', true);
+           $('#new_task_button').attr('disabled', true);
             ajax_handler('new-item', {
                 'task': this.get('task')
             }).then((data) => {
-               Ember.$('#new_task_button').attr('disabled', false);
+               $('#new_task_button').attr('disabled', false);
                 if (!data.success) {
                     alert('Error: ' + data.error);
                     if (data.todo_items){
@@ -33,24 +34,24 @@ export default Controller.extend({
                     }
                     return false;
                 }
-               Ember.$('#new_task_input').val('');
-               Ember.$('#new_task_button').attr('disabled', true);
+               $('#new_task_input').val('');
+               $('#new_task_button').attr('disabled', true);
                 controller.get('model.todo_items').setObjects(data.todo_items);
             }).catch(function() {
-               Ember.$('#new_task_button').attr('disabled', false);
+               $('#new_task_button').attr('disabled', false);
                 alert('Something went wrong');
                 return false;
             });
         },
         set_completed (task_id, is_done) {
-           Ember.$('#todo_item_' + task_id).attr('disabled', true);
+           $('#todo_item_' + task_id).attr('disabled', true);
             const controller = this;
 
             ajax_handler('set-completed', {
                 task_id: task_id,
                 is_done: is_done
             }).then(function(data) {
-               Ember.$('#todo_item_' + task_id).attr('disabled', false);
+               $('#todo_item_' + task_id).attr('disabled', false);
                 if (!data.success) {
                     alert('Error: ' + data.error);
                     if (data.todo_items){
@@ -60,7 +61,7 @@ export default Controller.extend({
                 }
                 controller.get('model.todo_items').setObjects(data.todo_items);
             }).catch(function() {
-               Ember.$('#todo_item_' + task_id).attr('disabled', false);
+               $('#todo_item_' + task_id).attr('disabled', false);
                 alert('Something went wrong');
                 return false;
             });

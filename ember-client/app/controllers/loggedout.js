@@ -1,12 +1,13 @@
 import Controller from '@ember/controller';
 import config from '../config/environment';
+import $ from 'jquery';
 
 const ajax_handler = function (url, data) {
     let method = 'GET';
     if (data){
         method='POST';
     }
-    return Ember.$.ajax({
+    return $.ajax({
         url: config.laravel_server + url,
         method: method,
         crossDomain: true,
@@ -16,11 +17,6 @@ const ajax_handler = function (url, data) {
 }
 export default Controller.extend({
     actions: {
-        check_login: function() {
-            ajax_handler('is-logged-in').then(function(data) {
-                console.log(data);
-            });
-        },
         register: function() {
             ajax_handler('register', {
                 'name': this.get('register_name'),
@@ -37,7 +33,7 @@ export default Controller.extend({
             });
         },
         login: function() {
-           Ember.$.ajax({
+           $.ajax({
                 method: 'POST',
                 data: {
                     'email': this.get('login_email'),

@@ -1,15 +1,16 @@
 import Route from '@ember/routing/route';
 import config from '../config/environment';
+import $ from 'jquery';
 
 export default Route.extend({
     async model() {
         // onload set disabled button states
-       Ember.$(document).on('keyup', '#new_task_input', function(){
+       $(document).on('keyup', '#new_task_input', function(){
             const disabled_status = ($(this).val().trim() == '');
-           Ember.$('#new_task_button').attr('disabled', disabled_status);
+           $('#new_task_button').attr('disabled', disabled_status);
         });
         const todo_items = [];
-        await Ember.$.ajax({
+        await $.ajax({
             url: config.laravel_server + 'todo-list',
             crossDomain: true,
             xhrFields: { withCredentials: true }
@@ -17,7 +18,7 @@ export default Route.extend({
             if (data.success == false) {
                 window.location.href = '/loggedout';
             }
-           Ember.$.each(data.todo_items, function() {
+           $.each(data.todo_items, function() {
                 todo_items.push(this);
             });
         });
