@@ -1,27 +1,38 @@
 import Controller from '@ember/controller';
 import config from '../config/environment';
 
+const ajax_handler = function (url, data) {
+    let method = 'GET';
+    if (data){
+        method='POST';
+    }
+    return Ember.$.ajax({
+        url: config.laravel_server + url,
+        method: method,
+        crossDomain: true,
+        data: data,
+        xhrFields: { withCredentials: true }
+    });
+}
 export default Controller.extend({
     actions: {
         check_login: function() {
-            $.ajax({
-                'url': config.laravel_server + '/is_logged_in',
-                crossDomain: true,
-                xhrFields: { withCredentials: true }
-            }).then(function(data) {
+            ajax_handler('is-logged-in').then(function(data) {
                 console.log(data);
             });
         },
         register: function() {
-            const register_req = $.post(config.laravel_server + '/register', {
+            ajax_handler('register', {
                 'name': this.get('register_name'),
                 'email': this.get('register_email'),
                 'password': this.get('register_password')
-            });
-            register_req.then(function() {
-                window.location.href='/';
-            });
-            register_req.catch(function() {
+            }).then((data) => {
+                if (data.success) {
+                    window.location.href='/';
+                }else{
+                    alert('Something went wrong: ' + data.error);
+                }
+            }).catch(function() {
                 alert('Something went wrong');
             });
         },
@@ -32,7 +43,7 @@ export default Controller.extend({
                     'email': this.get('login_email'),
                     'password': this.get('login_password')
                 },
-                url: config.laravel_server + '/login',
+                url: config.laravel_server + 'login',
                 crossDomain: true,
                 xhrFields: { withCredentials: true }
             }).then(function(data) {

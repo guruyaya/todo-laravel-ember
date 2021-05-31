@@ -10,7 +10,7 @@ export default Route.extend({
         });
         const todo_items = [];
         await Ember.$.ajax({
-            url: config.laravel_server + '/todo-list',
+            url: config.laravel_server + 'todo-list',
             crossDomain: true,
             xhrFields: { withCredentials: true }
         }).then(function(data) {

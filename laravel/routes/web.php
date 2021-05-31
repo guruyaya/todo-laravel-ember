@@ -1,6 +1,4 @@
 <?php
-
-use App\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +18,7 @@ Route::get('/', function () {
 Route::get('/is-logged-in', 'UserController@is_logged_in');
 Route::post('/register', 'UserController@register');
 Route::post('/login', 'UserController@login');
+Route::post('/logout', 'UserController@logout');
 
 Route::get('/todo-list', 'TodoListController@list');
 Route::post('/set-completed', 'TodoListController@set_completed');

@@ -64,6 +64,19 @@ export default Controller.extend({
                 alert('Something went wrong');
                 return false;
             });
+        },
+        logout(){
+            ajax_handler('logout', {'do_logout': 1}).then((data) => {
+                if (data.success) {
+                    window.location.href = '/loggedout';
+                    return;
+                }
+                alert('Error logging out');
+            }).catch(function() {
+                alert('Something went wrong');
+                return false;
+            });
+
         }
     }
 });
