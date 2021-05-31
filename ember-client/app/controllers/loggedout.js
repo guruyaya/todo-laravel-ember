@@ -37,7 +37,7 @@ export default Controller.extend({
             });
         },
         login: function() {
-            $.ajax({
+           Ember.$.ajax({
                 method: 'POST',
                 data: {
                     'email': this.get('login_email'),

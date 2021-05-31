@@ -29,7 +29,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.laravel_server = 'http://localhost:8000/'
+    ENV.laravel_server = 'http://localhost:8000/';
   }
 
   if (environment === 'test') {
@@ -46,6 +46,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.laravel_server = 'http://localhost:8000/';
   }
 
   return ENV;
