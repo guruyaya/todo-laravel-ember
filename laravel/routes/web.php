@@ -1,7 +1,6 @@
 <?php
 
 use App\User;
-use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,55 +16,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', function () {
-    // TODO: Remove this function before sending
-    return '
-<form method="post">
-    <input name="name" value="yair" />
-    <input name="email" value="yo@yoyoai.com" />
-    <input name="password" value="12121"/>
-    <input type="submit" />
-</form>
-';
-});
-
 // TODO: move to it's own controller
-Route::post('/register', function(Request $request) {
-    $data = Request::post();
-    // TODO: Insecure registration!!! Do not send project without fixing!!!
-    return User::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password' => Hash::make($data['password']),
-    ]);
-});
-
-Route::get('/is_logged_in', function() {
-    if (Auth::check()) {
-        return  ['logged_in' => true];
-    }
-    return  ['logged_in' => false];
-});
-
-Route::get('/login', function () {
-    // TODO: Remove this function before sending
-    return '
-<form method="post">
-    <input name="email" value="yo@yoyoai.com" />
-    <input name="password" value="12121"/>
-    <input type="submit" />
-</form>
-';
-});
-
-Route::post('/login', function(Request $request) {
-    $data = Request::post();
-    $credentials = ['email' => $data['email'], 'password' => $data['password']];
-    if (Auth::attempt($credentials)) {
-        return ['success' => true];
-    }
-    return ['success' => false];
-});
+Route::get('/is-logged-in', 'UserController@is_logged_in');
+Route::post('/register', 'UserController@register');
+Route::post('/login', 'UserController@login');
 
 Route::get('/todo-list', 'TodoListController@list');
 Route::post('/set-completed', 'TodoListController@set_completed');
