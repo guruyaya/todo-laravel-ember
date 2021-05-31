@@ -1,18 +1,22 @@
-<h3>רשימת משימות</h3>
-<button {{action "logout"}}>Log out</button>
-<p>
-{{input value=task id="new_task_input"}}
-<button {{action "new_item"}} id="new_task_button" disabled>משימה חדשה</button>
-</p>
-<ul>
-{{#each model.todo_items as |item|}}
-    <li>
-        {{#if item.completed_at}}
-        <input type="checkbox" checked id="todo_item_{{item.id}}" onchange={{action "set_completed" item.id false}} />
-        {{else}}
-        <input type="checkbox"  id="todo_item_{{item.id}}" onchange={{action "set_completed" item.id true}} />
-        {{/if}}
-        {{item.task}}
-    </li>
-{{/each}}
-</ul>
+<button id="logout_button" {{action "logout"}}>התנתק</button>
+<div class="todo-list">
+    <h3>רשימת משימות</h3>
+    <form id="new_task_form">
+        {{input value=task id="new_task_input"}}
+        <button {{action "new_item"}} id="new_task_button" disabled>משימה חדשה</button>
+    </form>
+    <ul id="todo_list_items">
+    {{#each model.todo_items as |item|}}
+        <li class="{{if item.completed_at "completed" "not_completed"}}">
+            {{#if item.completed_at}}
+            <input type="checkbox" checked id="todo_item_{{item.id}}" onchange={{action "set_completed" item.id false}} />
+            {{else}}
+            <input type="checkbox"  id="todo_item_{{item.id}}" onchange={{action "set_completed" item.id true}} />
+            {{/if}}
+            {{item.task}}
+            <i class="fa fa-share-alt" title="שיתוף משימה"></i>
+            <i class="fa fa-trash" aria-hidden="true" title="מחק משימה"></i>
+        </li>
+    {{/each}}
+    </ul>
+</div>

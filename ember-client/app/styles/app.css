@@ -1,1 +1,103 @@
-html {direction: rtl;}
+html {direction: rtl;background-color: black; font-family: arial, sans-serif}
+html>body {margin: 0}
+.wrapper { border: solid 1px #333; 
+    background-color: gray; 
+    height: 100vh; 
+    width: 95%; 
+    margin: auto;
+}
+.wrapper h1 {
+    text-align: center;
+    color: white;
+    margin: 0;
+    text-shadow: 1px 1px 1px #733, -1px 1px 1px #733, 1px -1px 1px #733, -1px -1px 1px #733;
+    width: calc(100% - 60px);
+}
+
+.todo-list h3 {
+    font-size: 30px;
+    margin-top: 0;
+    margin-bottom: 0px;
+    background: rgb(138,106,0);
+    background: -moz-linear-gradient(0deg, rgba(138,106,0,1) 0%, rgba(255,187,42,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(138,106,0,1) 0%, rgba(255,187,42,1) 100%);
+    background: linear-gradient(0deg, rgba(138,106,0,1) 0%, rgba(255,187,42,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#8a6a00",endColorstr="#ffbb2a",GradientType=1);
+    border-bottom: solid 2px #555;
+}
+
+#new_task_input {
+    width: calc(100vw - 68px - 134px);
+    margin-right: 5px;
+    font-size: 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+#new_task_button {
+    font-size: 20px;
+    width: 130px;
+    border-radius:5px;
+    border-width: 2px;
+}
+#new_task_button:disabled {
+    background-color: rgb(206, 206, 206);
+}
+#new_task_form {
+    margin-bottom: 0px;
+    background: rgb(255,243,0);
+    background: -moz-linear-gradient(0deg, rgba(255,243,0,1) 0%, rgba(215,255,42,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(255,243,0,1) 0%, rgba(215,255,42,1) 100%);
+    background: linear-gradient(0deg, rgba(255,243,0,1) 0%, rgba(215,255,42,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fff300",endColorstr="#d7ff2a",GradientType=1);    border-bottom: solid 2px #555;
+    padding-bottom: 5px;
+}
+#todo_list_items {
+    padding: 0;
+    margin: 0;
+}
+#logout_button {
+    position: absolute;
+    top: 10px; left: 20px;
+    width: 50px;
+    border-width: 2px;
+}
+#todo_list_items li {
+    list-style: none;
+    font-size: 20px;
+    border-bottom: solid 1px #000;
+    height: 25px;
+    padding: 5px 5px 5px 0;
+    position: relative;
+}
+#todo_list_items li .fa-share-alt {
+    position: absolute;
+    left: 30px;
+    top: 5px;
+    font-size:20px;
+}
+#todo_list_items li .fa-trash {
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    font-size:20px;
+}
+#todo_list_items li:nth-child(odd) {
+    background-color:rgb(206, 255, 166);
+}
+#todo_list_items li:nth-child(even) {
+    background-color:#fff;
+}
+#todo_list_items li input[type="checkbox"] {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    transform: scale(2);
+}
+
+#todo_list_items li.completed {
+    text-decoration: line-through;
+    color: #666;
+    text-decoration-color: #444;
+}
