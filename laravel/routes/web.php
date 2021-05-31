@@ -69,3 +69,4 @@ Route::post('/login', function(Request $request) {
 
 Route::get('/todo-list', 'TodoListController@list');
 Route::post('/set-completed', 'TodoListController@set_completed');
+Route::post('/new-item', 'TodoListController@new_item');

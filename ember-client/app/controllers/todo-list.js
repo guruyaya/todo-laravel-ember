@@ -22,7 +22,7 @@ export default Controller.extend({
             const controller = this;
 
             $('#new_task_button').attr('disabled', true);
-            ajax_handler('new_item', {
+            ajax_handler('new-item', {
                 'task': this.get('task')
             }).then((data) => {
                 $('#new_task_button').attr('disabled', false);
