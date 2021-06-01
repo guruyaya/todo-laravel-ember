@@ -15,8 +15,28 @@
             {{/if}}
             {{item.task}}
             <i class="fa fa-share-alt" title="שיתוף משימה"></i>
-            <i class="fa fa-trash" aria-hidden="true" title="מחק משימה"></i>
+            <i {{action "delete_are_you_sure" item}} class="fa fa-trash" aria-hidden="true" title="מחק משימה"></i>
         </li>
     {{/each}}
     </ul>
+    
 </div>
+
+<BsModal @open={{are_you_sure_modal}}
+    @onHidden={{action (mut modal1) false}}
+    @item_id_to_delete={{item_id_to_delete}}
+    @onSubmit={{action "delete_task" item_id_to_delete}} as |Modal|>
+  <Modal.header>
+    <h4 class="modal-title"><i class="glyphicon glyphicon-alert"></i> האם אתה בטוח?</h4>
+  </Modal.header>
+  <Modal.body>
+    <p id="modal_question">
+        אתה עומד למחוק את המשימה: {{delete_task_title}}
+    </p>
+    <p id="modal_wait">...</p>
+  </Modal.body>
+  <Modal.footer as |footer|>
+    <BsButton @onClick={{action Modal.close}} @type="danger" >לא!</BsButton>
+    <BsButton @onClick={{action Modal.submit}} @type="success">בהחלט!</BsButton>
+  </Modal.footer>
+</BsModal>

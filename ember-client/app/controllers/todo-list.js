@@ -19,6 +19,40 @@ const ajax_handler = function (url, data) {
 export default Controller.extend({
     todo_items: [],
     actions: {
+        delete_are_you_sure (item) {
+            $('#modal_wait').hide();
+            $('#modal_question').show();
+
+            this.set('delete_task_title', item.task);
+            this.set('item_id_to_delete', item.id);
+            this.set('are_you_sure_modal', true);
+        },
+        delete_task(item_id_to_delete) {
+            $('#modal_wait').show();
+            $('#modal_question').hide();
+            const controller = this;
+            
+            ajax_handler('delete-item', {
+                item_id: item_id_to_delete
+            }).then((data) => {
+                if (!data.success) {
+                    alert('Error: ' + data.error);
+                    if (data.todo_items){
+                        controller.get('model.todo_items').setObjects(data.todo_items);
+                    }
+                    return false;
+               }
+               $('#modal_wait').hide();
+               $('#modal_question').show();
+               this.set('are_you_sure_modal', false);
+            }).catch(() => {
+                alert('There was an unknown error');
+                $('#modal_wait').hide();
+                $('#modal_question').show();
+                this.set('are_you_sure_modal', false);
+            });
+            this.set('are_you_sure_modal', false);
+        },
         new_item () {
             const controller = this;
 
@@ -33,7 +67,7 @@ export default Controller.extend({
                         controller.get('model.todo_items').setObjects(data.todo_items);
                     }
                     return false;
-                }
+               }
                $('#new_task_input').val('');
                $('#new_task_button').attr('disabled', true);
                 controller.get('model.todo_items').setObjects(data.todo_items);

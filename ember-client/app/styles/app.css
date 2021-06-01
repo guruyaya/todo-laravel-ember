@@ -1,5 +1,5 @@
-html {direction: rtl;background-color: black; font-family: arial, sans-serif}
-html>body {margin: 0}
+html {background-color: black; font-family: arial, sans-serif}
+html>body {margin: 0; direction: rtl; text-align: right;}
 .wrapper { border: solid 1px #333; 
     background-color: gray; 
     height: 100vh; 
@@ -70,21 +70,23 @@ html>body {margin: 0}
     list-style: none;
     font-size: 20px;
     border-bottom: solid 1px #000;
-    height: 25px;
+    height: 40px;
     padding: 5px 5px 5px 0;
     position: relative;
 }
 #todo_list_items li .fa-share-alt {
     position: absolute;
     left: 30px;
-    top: 5px;
+    top: 10px;
     font-size:20px;
+    cursor: pointer;
 }
 #todo_list_items li .fa-trash {
     position: absolute;
     left: 10px;
-    top: 5px;
+    top: 10px;
     font-size:20px;
+    cursor: pointer;
 }
 #todo_list_items li:nth-child(odd) {
     background-color:rgb(206, 255, 166);
@@ -98,6 +100,8 @@ html>body {margin: 0}
     -webkit-transform: scale(2); /* Safari and Chrome */
     -o-transform: scale(2); /* Opera */
     transform: scale(2);
+    margin-left: 10px;
+    margin-right: 5px;
 }
 
 #todo_list_items li.completed {
@@ -105,3 +109,16 @@ html>body {margin: 0}
     color: #666;
     text-decoration-color: #444;
 }
+#modal_wait {
+    display: none;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    animation: wait_keyframes 2s infinite;
+}
+@keyframes wait_keyframes {
+    from {transform: translate(0px, 0px); opacity: 0.3;}
+    25% {transform: translate(0px, 15px); opacity: 0.5;}
+    75% {transform: translate(0px, -15px); opacity: 1;}
+    to {transform: translate(0px, 0px);opacity: 0.3;}
+  }
