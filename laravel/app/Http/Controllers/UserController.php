@@ -5,13 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\User;
 
 class UserController extends Controller
 {
     function register(Request $request) {
         $data = $request->post();
-        // TODO: Insecure registration!!! Do not send project without fixing!!!
+        $validator = Validator::make($data, [
+            'name' => ['required', 'string', 'max:5'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        if ( $validator->fails() ){
+            return ['success' => false, 'errors' => $validator->messages()];
+        }
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
