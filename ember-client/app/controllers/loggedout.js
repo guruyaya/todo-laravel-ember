@@ -16,17 +16,35 @@ const ajax_handler = function (url, data) {
     });
 }
 export default Controller.extend({
+    errors_register_name: [],
+    errors_register_email: [],
+    errors_register_password: [],
     actions: {
         register: function() {
+            const controller = this;
+            for (const key of ['name', 'email', 'password']) {
+                controller.get('errors_register_' + key).setObjects([])
+            }
             ajax_handler('register', {
                 'name': this.get('register_name'),
                 'email': this.get('register_email'),
-                'password': this.get('register_password')
+                'password': this.get('register_password'),
+                'password_confirmation': this.get('register_repeat_password')
             }).then((data) => {
+                $.each(['name', 'email', 'password'], function() {
+                    console.log(this);
+                });
                 if (data.success) {
                     window.location.href='/';
                 }else{
-                    alert('Something went wrong: ' + data.error);
+                    if (data.error){
+                        alert('Something went wrong: ' + data.error);
+                        return;
+                    }
+                    for (let key in data.errors) {
+                        controller.get('errors_register_' + key).setObjects(data.errors[key])
+                        console.log(key, data.errors[key]);
+                    }
                 }
             }).catch(function() {
                 alert('Something went wrong');

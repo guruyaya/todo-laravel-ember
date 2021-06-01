@@ -1,39 +1,60 @@
 <div class="login_and_registration">
     <form id="login_form">
-        <h3>Login</h3>
+        <h3>התחברות</h3>
         <ul>
             <li>
-                <label for="login_email">login_email</label>
+                <label for="login_email">מייל</label>
                 {{input value=login_email}}
             </li>
             <li>
-                <label for="login_password">login_password</label>
+                <label for="login_password">סיסמה</label>
                 {{input type="password" value=login_password}}
             </li>
-            <button {{action "login"}}>Log in</button>
+            <button {{action "login"}}>התחבר</button>
         </ul>
     </form>
     <form id="regsiter_form">
-        <h3>Register</h3>
+        <h3>הרשמה</h3>
         <ul>
             <li>
-                <label for="register_name">register_name</label>
+                <label for="register_name">שם</label>
                 {{input type="text" value=register_name}}
+                {{#if errors_register_name.length}}
+                <ul class="errors">
+                    {{#each errors_register_name as |error|}}
+                    <li>{{error}}</li>
+                    {{/each}}
+                </ul>
+                {{/if}}
             </li>
 
             <li>
-                <label for="register_email">register_email</label>
+                <label for="register_email">מייל</label>
                 {{input type="text" value=register_email}}
+                {{#if errors_register_email.length}}
+                <ul class="errors">
+                    {{#each errors_register_email as |error|}}
+                    <li>{{error}}</li>
+                    {{/each}}
+                </ul>
+                {{/if}}
             </li>
             <li>
-                <label for="register_password">register_password</label>
+                <label for="register_password">סיסמה</label>
                 {{input type="password" value=register_password}}
+                {{#if errors_register_password.length}}
+                <ul class="errors">
+                    {{#each errors_register_password as |error|}}
+                    <li>{{error}}</li>
+                    {{/each}}
+                </ul>
+                {{/if}}
             </li>
             <li>
-                <label for="register_repeat_password">register_repeat_password</label>
+                <label for="register_repeat_password">סיסמה (בשנית)</label>
                 {{input type="password" value=register_repeat_password}}
             </li>
-            <button {{action "register"}}>Register</button>
+            <button {{action "register"}}>הרשמה</button>
         </ul>
     </form>
 
