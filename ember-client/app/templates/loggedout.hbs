@@ -20,11 +20,11 @@
                 <label for="register_name">שם</label>
                 {{input type="text" value=register_name}}
                 {{#if errors_register_name.length}}
-                <ul class="errors">
+                <div class="errors">
                     {{#each errors_register_name as |error|}}
-                    <li>{{error}}</li>
+                    <p>{{error}}</p>
                     {{/each}}
-                </ul>
+                </div>
                 {{/if}}
             </li>
 
@@ -32,22 +32,22 @@
                 <label for="register_email">מייל</label>
                 {{input type="text" value=register_email}}
                 {{#if errors_register_email.length}}
-                <ul class="errors">
+                <div class="errors">
                     {{#each errors_register_email as |error|}}
-                    <li>{{error}}</li>
+                    <p>{{error}}</p>
                     {{/each}}
-                </ul>
+                </div>
                 {{/if}}
             </li>
             <li>
                 <label for="register_password">סיסמה</label>
                 {{input type="password" value=register_password}}
                 {{#if errors_register_password.length}}
-                <ul class="errors">
+                <div class="errors">
                     {{#each errors_register_password as |error|}}
-                    <li>{{error}}</li>
+                    <p>{{error}}</p>
                     {{/each}}
-                </ul>
+                </div>
                 {{/if}}
             </li>
             <li>
