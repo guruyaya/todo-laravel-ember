@@ -31,7 +31,7 @@ export default Controller.extend({
             $('#modal_wait').show();
             $('#modal_question').hide();
             const controller = this;
-            
+
             ajax_handler('delete-item', {
                 item_id: item_id_to_delete
             }).then((data) => {
@@ -42,6 +42,7 @@ export default Controller.extend({
                     }
                     return false;
                }
+               controller.get('model.todo_items').setObjects(data.todo_items);
                $('#modal_wait').hide();
                $('#modal_question').show();
                this.set('are_you_sure_modal', false);

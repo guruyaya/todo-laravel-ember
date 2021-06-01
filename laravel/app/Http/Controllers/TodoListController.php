@@ -17,6 +17,31 @@ class TodoListController extends Controller
         return ['success'=>true, 'todo_items'=>$todo_items];
     }
 
+    public function delete_item(Request $request) {
+        if (!Auth::check()){
+            return ['success'=>false, 'error' => 'not logged in'];
+        }
+        $data = $request->post();
+        $task_query = TodoItem::where('id', $data['item_id'])->
+            where('user_id', Auth::id());
+        $task = $task_query->get();
+
+        if (count($task) == 0) {
+            $todo_items = TodoItem::get_user_tasks(Auth::id());
+            return ['success'=>false, 'error'=>'this is not your task', 'todo_items'=>$todo_items];
+        }
+
+        $success = TodoItem::where(['id' => $data['item_id']])->
+            delete();
+
+        $todo_items = TodoItem::get_user_tasks(Auth::id());
+        if (!$success){
+            return ['success'=>false, 'error' => 'Failed to delte item', 'todo_items' => $todo_items];
+        }
+
+        return ['success'=>true, 'todo_items' => $todo_items];
+    }
+
     public function new_item(Request $request) {
         if (!Auth::check()){
             return ['success'=>false, 'error' => 'not logged in'];

@@ -23,3 +23,4 @@ Route::post('/logout', 'UserController@logout');
 Route::get('/todo-list', 'TodoListController@list');
 Route::post('/set-completed', 'TodoListController@set_completed');
 Route::post('/new-item', 'TodoListController@new_item');
+Route::post('/delete-item', 'TodoListController@delete_item');
