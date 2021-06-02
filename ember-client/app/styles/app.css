@@ -109,8 +109,8 @@ html>body {margin: 0; direction: rtl; text-align: right;}
     color: #666;
     text-decoration-color: #444;
 }
-#modal_wait {
-    display: none;
+#modal_share_wait,
+#modal_question_wait {
     text-align: center;
     font-weight: bold;
     font-size: 30px;

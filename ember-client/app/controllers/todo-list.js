@@ -20,16 +20,14 @@ export default Controller.extend({
     todo_items: [],
     actions: {
         delete_are_you_sure (item) {
-            $('#modal_wait').hide();
-            $('#modal_question').show();
-
+            this.set('modal_question_wait', false);
             this.set('delete_task_title', item.task);
             this.set('item_id_to_delete', item.id);
+
             this.set('are_you_sure_modal', true);
         },
         delete_task(item_id_to_delete) {
-            $('#modal_wait').show();
-            $('#modal_question').hide();
+            this.set('modal_question_wait', true);
             const controller = this;
 
             ajax_handler('delete-item', {
@@ -43,13 +41,11 @@ export default Controller.extend({
                     return false;
                }
                controller.get('model.todo_items').setObjects(data.todo_items);
-               $('#modal_wait').hide();
-               $('#modal_question').show();
+               this.set('modal_question_wait', false);
                this.set('are_you_sure_modal', false);
             }).catch(() => {
                 alert('There was an unknown error');
-                $('#modal_wait').hide();
-                $('#modal_question').show();
+                this.set('modal_question_wait', false);
                 this.set('are_you_sure_modal', false);
             });
             this.set('are_you_sure_modal', false);
@@ -113,6 +109,21 @@ export default Controller.extend({
                 return false;
             });
 
+        },
+        share_task(item) {
+            this.set('share_modal', true);
+            this.set('modal_share_wait', true);
+            const controller = this;
+
+            ajax_handler('ask_for_share', {
+                item_id: item.id
+            }).then((data) => {
+                controller.get('share_users').setObjects(data.share_users);
+            }).catch(() => {
+                alert('There was an unknown error');
+                this.set('modal_share_wait', false);
+                this.set('share_modal', false);
+            });
         }
     }
 });
