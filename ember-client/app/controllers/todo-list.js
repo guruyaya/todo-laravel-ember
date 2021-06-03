@@ -36,14 +36,12 @@ export default Controller.extend({
             }).then((data) => {
                 if (!data.success) {
                     alert('Error: ' + data.error);
-                    if (data.todo_items){
-                        controller.get('model.todo_items').setObjects(data.todo_items);
-                    }
-                    return false;
-               }
-               controller.get('model.todo_items').setObjects(data.todo_items);
-               this.set('modal_question_wait', false);
-               this.set('are_you_sure_modal', false);
+                }
+                if (data.todo_items){
+                    controller.get('model.todo_items').setObjects(data.todo_items);
+                }
+                this.set('modal_question_wait', false);
+                this.set('are_you_sure_modal', false);
             }).catch(() => {
                 alert('There was an unknown error');
                 this.set('modal_question_wait', false);
@@ -114,12 +112,26 @@ export default Controller.extend({
         submit_share_item(item_id) {
             let users_marked_inputs = $('#share_task_list li input:checked');
             let users_marked = [];
+            let controller = this;
+
             $.each(users_marked_inputs, function() {
                 users_marked.push($(this).attr('name'));
             });
+            this.set('modal_share_wait', true);
             ajax_handler('share-item', {
                 'item_id': item_id,
                 'users_to_share': users_marked.join(',')
+            }).then((data) => {
+                if (!data.success) {
+                    alert('Error: ' + data.error);
+                }
+                if (data.share_users){
+                    this.set('modal_share_wait', false);
+                    controller.get('share_users').setObjects(data.share_users);
+                    if (data.todo_items){
+                        controller.get('model.todo_items').setObjects(data.todo_items);
+                    }
+                }
             }).catch(() => {
                 alert('There was an unknown error');
                 this.set('modal_share_wait', false);

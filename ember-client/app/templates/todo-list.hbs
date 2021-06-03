@@ -7,14 +7,18 @@
     </form>
     <ul id="todo_list_items">
     {{#each model.todo_items as |item|}}
-        <li class="{{if item.completed_at "completed" "not_completed"}}">
+        <li class="
+          {{if item.completed_at "completed" "not_completed"}}
+          {{if item.share_count "shared" "not_shared"}}
+          ">
             {{#if item.completed_at}}
             <input type="checkbox" checked id="todo_item_{{item.id}}" onchange={{action "set_completed" item.id false}} />
             {{else}}
             <input type="checkbox"  id="todo_item_{{item.id}}" onchange={{action "set_completed" item.id true}} />
             {{/if}}
             {{item.task}}
-            <i {{action "share_task" item}} class="fa fa-share-alt" title="שיתוף משימה"></i>
+            <i {{action "share_task" item}} 
+              class="fa fa-share-alt" title="שיתוף משימה"></i>
             <i {{action "delete_are_you_sure" item}} class="fa fa-trash" aria-hidden="true" title="מחק משימה"></i>
         </li>
     {{/each}}
@@ -78,7 +82,7 @@
     {{/if}}
   </Modal.body>
   <Modal.footer as |footer|>
-    <BsButton @onClick={{action Modal.close}} @type="danger" >ביטול!</BsButton>
+    <BsButton @onClick={{action Modal.close}} @type="danger" >סגור!</BsButton>
     {{#unless modal_share_wait}}
       <BsButton @onClick={{action Modal.submit}} @type="success" >שתף!</BsButton>
     {{/unless}}
