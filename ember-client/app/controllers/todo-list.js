@@ -18,6 +18,7 @@ const ajax_handler = function (url, data) {
 
 export default Controller.extend({
     todo_items: [],
+    share_users: [],
     actions: {
         delete_are_you_sure (item) {
             this.set('modal_question_wait', false);
@@ -110,14 +111,29 @@ export default Controller.extend({
             });
 
         },
+        submit_share_item(item_id) {
+            let users_marked_inputs = $('#share_task_list li input:checked');
+            let users_marked = [];
+            $.each(users_marked_inputs, function() {
+                users_marked.push($(this).attr('name'));
+            });
+            ajax_handler('share-item', {
+                'item_id': item_id,
+                'users_to_share': users_marked.join(',')
+            }).catch(() => {
+                alert('There was an unknown error');
+                this.set('modal_share_wait', false);
+                this.set('share_modal', false);
+            });
+        },
         share_task(item) {
             this.set('share_modal', true);
             this.set('modal_share_wait', true);
+            this.set('item_id_to_share', item.id);
             const controller = this;
 
-            ajax_handler('ask_for_share', {
-                item_id: item.id
-            }).then((data) => {
+            ajax_handler('ask-for-share?item_id=' + item.id).then((data) => {
+                this.set('modal_share_wait', false);
                 controller.get('share_users').setObjects(data.share_users);
             }).catch(() => {
                 alert('There was an unknown error');

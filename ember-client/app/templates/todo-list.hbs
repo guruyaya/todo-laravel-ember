@@ -19,7 +19,6 @@
         </li>
     {{/each}}
     </ul>
-    
 </div>
 
 <BsModal @open={{are_you_sure_modal}}
@@ -51,6 +50,7 @@
 
 <BsModal @open={{share_modal}}
     @onHidden={{action (mut share_modal) false}}
+    @onSubmit={{action "submit_share_item" item_id_to_share}}
     @item_id_to_share={{item_id_to_share}} as |Modal|>
   <Modal.header>
     <h4 class="modal-title"><i class="glyphicon glyphicon-alert"></i>שיתוף משימה</h4>
@@ -62,10 +62,13 @@
     <p id="modal_share_list">
         שתף את המשימה: {{share_task_title}}
         {{#if share_users.length}}
-          <ul>
-            {{#each user in share_users}}
+          <ul id="share_task_list">
+            {{#each share_users as |user|}}
               <li>
-                {{input type="checkbox" checked=(if user.is_shared_with)}}
+                {{input type="checkbox" 
+                  checked=user.is_shared_with
+                  name=user.id
+                }}
                 {{user.name}}
               </li>
             {{/each}}
@@ -77,7 +80,7 @@
   <Modal.footer as |footer|>
     <BsButton @onClick={{action Modal.close}} @type="danger" >ביטול!</BsButton>
     {{#unless modal_share_wait}}
-      <BsButton @onClick={{action Modal.close}} @type="success" >שתף!</BsButton>
+      <BsButton @onClick={{action Modal.submit}} @type="success" >שתף!</BsButton>
     {{/unless}}
   </Modal.footer>
 </BsModal>
