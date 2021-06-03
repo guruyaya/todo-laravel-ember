@@ -13,8 +13,8 @@ class TodoItem extends Model
     public static function get_user_tasks(int $user_id) {
         return self::where('user_id', $user_id)->
             orderBy(\DB::raw('ISNULL(completed_at)'), 'DESC')->
-            orderBy(\DB::raw('completed_at'), 'DESC')->
-            orderByDesc('created_at')->
+            orderBy('completed_at', 'DESC')->
+            orderBy('created_at', 'DESC')->
             get();
     }
 }
