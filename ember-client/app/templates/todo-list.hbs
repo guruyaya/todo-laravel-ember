@@ -17,8 +17,10 @@
             <input type="checkbox"  id="todo_item_{{item.id}}" onchange={{action "set_completed" item.id true}} />
             {{/if}}
             {{item.task}}
+            {{#if item.is_mine}}
             <i {{action "share_task" item}} 
               class="fa fa-share-alt" title="שיתוף משימה"></i>
+            {{/if}}
             <i {{action "delete_are_you_sure" item}} class="fa fa-trash" aria-hidden="true" title="מחק משימה"></i>
         </li>
     {{/each}}
