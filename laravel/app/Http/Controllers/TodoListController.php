@@ -18,23 +18,34 @@ class TodoListController extends Controller
         $todo_items = TodoItem::get_user_tasks(Auth::id());
         return ['success'=>true, 'todo_items'=>$todo_items];
     }
+    public function delete_shared_item($item_id) {
+        // Deleting an item shared with you, removes it from your list
+        // but not from author list
+        $share_query = SharedItem::
+            where('todo_item_id', $item_id)->
+            where('user_id', Auth::id());
+        $affected = $share_query->delete();
 
+        $todo_items = TodoItem::get_user_tasks(Auth::id());
+        if ($affected == 0){ // this means the task wasn't shared with you.
+            return ['success'=>false, 'error'=>'this is not your task', 'todo_items'=>$todo_items];
+        }
+        return ['success'=>true, 'todo_items'=>$todo_items];
+
+    }
     public function delete_item(Request $request) {
         if (!Auth::check()){
             return ['success'=>false, 'error' => 'not logged in'];
         }
-        $data = $request->post();
-        $task_query = TodoItem::where('id', $data['item_id'])->
-            where('user_id', Auth::id());
-        $task = $task_query->get();
+        $item_id = $request->item_id;
+        $task_query = TodoItem::where('id', $item_id);
+        $task = $task_query->first();
 
-        if (count($task) == 0) {
-            $todo_items = TodoItem::get_user_tasks(Auth::id());
-            return ['success'=>false, 'error'=>'this is not your task', 'todo_items'=>$todo_items];
+        if ($task['user_id'] != Auth::id()) {
+            return $this->delete_shared_item($item_id);
         }
 
-        $success = TodoItem::where(['id' => $data['item_id']])->
-            delete();
+        $success = $task_query->delete();
 
         $todo_items = TodoItem::get_user_tasks(Auth::id());
         if (!$success){
