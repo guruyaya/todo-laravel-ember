@@ -24,3 +24,4 @@ Route::post('/set-completed', 'TodoListController@set_completed');
 Route::post('/new-item', 'TodoListController@new_item');
 Route::post('/delete-item', 'TodoListController@delete_item');
 
+Route::get('/ask-for-share', 'ShareController@ask_for_share');
